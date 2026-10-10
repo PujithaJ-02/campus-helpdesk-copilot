@@ -1,0 +1,7 @@
+google-adk
+google-cloud-aiplatform[adk,agent_engines]
+google-genai
+requests
+faiss-cpu
+rank-bm25
+numpy

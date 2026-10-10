@@ -1,0 +1,4 @@
+-r helpdesk_agent/requirements.txt
+beautifulsoup4
+python-dotenv
+pytest
