@@ -109,7 +109,7 @@ matched surface words over meaning (a "stolen laptop" question pulled insurance
 and vehicle-records pages), and even the exact-term questions didn't need it.
 Lowering BM25's weight helped, but dense alone was best, so the agent uses dense.
 
-### Results (fill in from `eval/results/`)
+### Results (prompt version 2026-10-11.2, model gemini-3.5-flash)
 
 | Eval | Metric | Value |
 |---|---|---|
@@ -118,9 +118,23 @@ Lowering BM25's weight helped, but dense alone was best, so the agent uses dense
 | Retrieval, hybrid, BM25 weight 0.25 | hit@4 / MRR | 0.93 / 0.87 |
 | **Retrieval, dense only (default)** | hit@4 / MRR | **1.00 / 0.92** |
 | Retrieval, dense + chapter filter | hit@4 / MRR | 1.00 / 0.93 |
-| Answers (n=) | faithful / cited | |
-| Triage (n=) | category accuracy | |
-| Latency | p50 answer ms | |
+| Answers, LLM judge (n=30) | faithful / cited / answered | 30/30 / 30/30 / 30/30 |
+| Answers | searches per question | 1.1 (max 3, enforced in code) |
+| Answers | p50 latency, end to end | 5.3 s |
+| Triage (n=) | category accuracy | not run yet |
+
+The judge is the same model as the agent, which can be lenient. Treat 30/30 as
+"no failures found on this set", not as proof of perfect accuracy.
+
+### What the evals caught and how each was fixed
+
+| Problem found | Fix |
+|---|---|
+| Hybrid search pulled insurance and vehicle pages for a "stolen laptop" question | Measured BM25 vs dense vs hybrid; switched to dense (30/30, MRR 0.92) |
+| Ticket agent asked users for name, phone and SUNet ID | Prompt rule against collecting personal details, plus a test |
+| Policy agent called search 13 times for one question and hit the rate limit | Per-turn search cap in the `before_tool_callback` (code, not prompt) |
+| One answer added legal details not in the retrieved passages | Prompt rule: no details beyond the passages; say what is missing |
+| p50 latency 15.5 s | Traced to the global embedding endpoint (~10 s after idle); moved embeddings to us-central1: 5.3 s |
 
 ## Deploy to Vertex AI Agent Engine
 
