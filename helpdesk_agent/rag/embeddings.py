@@ -1,7 +1,12 @@
 """Vertex AI text embeddings through the google-genai SDK.
 
-Reads GOOGLE_GENAI_USE_VERTEXAI, GOOGLE_CLOUD_PROJECT and GOOGLE_CLOUD_LOCATION
-from the environment. Vectors are L2-normalized so FAISS inner product = cosine.
+Reads GOOGLE_GENAI_USE_VERTEXAI and GOOGLE_CLOUD_PROJECT from the environment.
+Vectors are L2-normalized so FAISS inner product = cosine.
+
+Embeddings use their own region (EMBED_LOCATION, default us-central1) instead of
+GOOGLE_CLOUD_LOCATION. Measured on this project: the global endpoint took ~10.4s
+for the first request after ~15s idle, while us-central1 took ~0.3s. Gemini chat
+models stay on global because some newer models are only served there.
 """
 import logging
 import os
@@ -18,7 +23,7 @@ class VertexEmbedder:
         self.dim = int(dim or os.getenv("EMBED_DIM", "768"))
         # Some Vertex embedding models accept one input per request; raise this if yours allows more.
         self.batch_size = int(batch_size or os.getenv("EMBED_BATCH_SIZE", "1"))
-        self.client = genai.Client()
+        self.client = make_embed_client(genai)
 
     def embed(self, texts, task_type="RETRIEVAL_DOCUMENT"):
         from google.genai import types
@@ -39,6 +44,17 @@ class VertexEmbedder:
                         "embedding retry %d after %s", attempt + 1, str(exc)[:120])
                     time.sleep(2 ** attempt)  # back off on quota errors
         return normalize(np.array(vectors, dtype="float32"))
+
+
+def make_embed_client(genai):
+    use_vertex = os.getenv("GOOGLE_GENAI_USE_VERTEXAI", "").lower() in ("1", "true", "yes")
+    if not use_vertex:
+        return genai.Client()  # Gemini API key mode: no regions to choose
+    return genai.Client(
+        vertexai=True,
+        project=os.environ["GOOGLE_CLOUD_PROJECT"],
+        location=os.getenv("EMBED_LOCATION", "us-central1"),
+    )
 
 
 def normalize(matrix):

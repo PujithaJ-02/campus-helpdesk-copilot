@@ -100,3 +100,21 @@ def test_lower_bm25_weight_lets_dense_win(retriever):
     dense = retriever.search("report stolen laptop restricted data", k=3, mode="dense")
     assert [h["id"] for h in light] == [h["id"] for h in dense]
     assert full  # equal-weight run still returns results
+
+
+def test_embeddings_use_their_own_region(monkeypatch):
+    from helpdesk_agent.rag.embeddings import make_embed_client
+    calls = {}
+
+    class FakeGenai:
+        @staticmethod
+        def Client(**kwargs):
+            calls.update(kwargs)
+            return "client"
+
+    monkeypatch.setenv("GOOGLE_GENAI_USE_VERTEXAI", "TRUE")
+    monkeypatch.setenv("GOOGLE_CLOUD_PROJECT", "proj")
+    monkeypatch.setenv("GOOGLE_CLOUD_LOCATION", "global")
+    monkeypatch.delenv("EMBED_LOCATION", raising=False)
+    make_embed_client(FakeGenai)
+    assert calls == {"vertexai": True, "project": "proj", "location": "us-central1"}
