@@ -1,0 +1,99 @@
+computing | 6.1.1 Privacy and Access to Electronic Information | https://adminguide.stanford.edu/chapters/computing/privacy-and-access-electronic-information/privacy-and-access-electronic
+computing | 6.2.1 Computer and Network Usage Policy | https://adminguide.stanford.edu/chapters/computing/computer-and-network-usage/computer-and-network-usage-policy
+computing | 6.3.1 Information Security | https://adminguide.stanford.edu/chapters/computing/information-security/information-security
+computing | 6.4.1 Identification and Authentication Systems | https://adminguide.stanford.edu/chapters/computing/identification-and-authentication/identification-and-authentication-systems
+computing | 6.5.1 Chat Rooms and Other Forums Using Stanford Domains or Computer S | https://adminguide.stanford.edu/chapters/computing/chat-rooms-and-other-forums/chat-rooms-and-other-forums-using-stanford-domains
+computing | 6.6.1 Information Security Incident Response | https://adminguide.stanford.edu/chapters/computing/information-security-incidents/information-security-incident-response
+computing | 6.7.1 Administrative Computing Systems | https://adminguide.stanford.edu/chapters/computing/administrative-computing/administrative-computing-systems
+computing | 6.8.1 Accessibility of Electronic Content | https://adminguide.stanford.edu/chapters/computing/digital-accessibility/accessibility-electronic-content
+purchasing-and-payments | 5.1.1 Procurement Policies | https://adminguide.stanford.edu/chapters/purchasing-and-payments/purchasing-policies/procurement-policies
+purchasing-and-payments | 5.2.1 Financing of Purchases | https://adminguide.stanford.edu/chapters/purchasing-and-payments/capital-assets-and-equipment/financing-purchases
+purchasing-and-payments | 5.2.2 Equipment Leases | https://adminguide.stanford.edu/chapters/purchasing-and-payments/capital-assets-and-equipment/equipment-leases
+purchasing-and-payments | 5.2.3 Equipment Loans to Stanford | https://adminguide.stanford.edu/chapters/purchasing-and-payments/capital-assets-and-equipment/equipment-loans-stanford
+purchasing-and-payments | 5.2.4 Surplus Property Sales | https://adminguide.stanford.edu/chapters/purchasing-and-payments/capital-assets-and-equipment/surplus-property-sales
+purchasing-and-payments | 5.2.5 Real Estate Leases | https://adminguide.stanford.edu/chapters/purchasing-and-payments/capital-assets-and-equipment/real-estate-leases
+purchasing-and-payments | 5.3.1 Purchase Requisitions | https://adminguide.stanford.edu/chapters/purchasing-and-payments/purchasing-goods-and-services/purchase-requisitions
+purchasing-and-payments | 5.3.3 Purchasing Cards | https://adminguide.stanford.edu/chapters/purchasing-and-payments/purchasing-goods-and-services/purchasing-cards
+purchasing-and-payments | 5.3.6 Payments to Nonemployees | https://adminguide.stanford.edu/chapters/purchasing-and-payments/purchasing-goods-and-services/payments-nonemployees
+purchasing-and-payments | 5.4.1 Expense Advances | https://adminguide.stanford.edu/chapters/purchasing-and-payments/travel-and-business-expenses/expense-advances
+purchasing-and-payments | 5.4.2 Business and Travel Expenses | https://adminguide.stanford.edu/chapters/purchasing-and-payments/business-and-travel-expenses/business-and-travel-expenses
+purchasing-and-payments | 5.4.3 Travel Cards | https://adminguide.stanford.edu/chapters/purchasing-and-payments/business-and-travel-expenses/travel-cards
+human-resources | 2.1.1 Staff Personnel Policies | https://adminguide.stanford.edu/chapters/human-resources/staff-employment-policies/staff-personnel-policies
+human-resources | 2.1.2 Recruiting and Hiring of Regular Staff | https://adminguide.stanford.edu/chapters/human-resources/staff-employment-policies/recruiting-and-hiring-regular-staff
+human-resources | 2.1.3 Personnel Files and Data | https://adminguide.stanford.edu/chapters/human-resources/staff-employment-policies/personnel-files-and-data
+human-resources | 2.1.4 Hiring Employees from Stanford Health Care or its Predecessor Co | https://adminguide.stanford.edu/chapters/human-resources/staff-employment-policies/hiring-employees-stanford-health-care-or-its
+human-resources | 2.1.5 Compensation of Staff Employees | https://adminguide.stanford.edu/chapters/human-resources/staff-employment-policies/compensation-staff-employees
+human-resources | 2.1.6 Vacations | https://adminguide.stanford.edu/chapters/human-resources/staff-employment-policies/vacations
+human-resources | 2.1.7 Sick Time: Regular Staff Employees, Regular Academic Staff-Resea | https://adminguide.stanford.edu/chapters/human-resources/staff-employment-policies/sick-time-regular-staff-employees-regular
+human-resources | 2.1.8 Miscellaneous Authorized Absences | https://adminguide.stanford.edu/chapters/human-resources/staff-employment-policies/miscellaneous-authorized-absences
+human-resources | 2.1.9 Separation from Employment | https://adminguide.stanford.edu/chapters/human-resources/staff-employment-policies/separation-employment
+human-resources | 2.1.10 Staff Retirement | https://adminguide.stanford.edu/chapters/human-resources/staff-employment-policies/staff-retirement
+human-resources | 2.1.11 Staff Grievance Policy | https://adminguide.stanford.edu/chapters/human-resources/staff-employment-policies/staff-grievance-policy
+human-resources | 2.1.12 Staff Development Programs | https://adminguide.stanford.edu/chapters/human-resources/staff-employment-policies/staff-development-programs
+human-resources | 2.1.13 Paid Holidays | https://adminguide.stanford.edu/chapters/human-resources/staff-employment-policies/paid-holidays
+human-resources | 2.1.14 Senior Staff | https://adminguide.stanford.edu/chapters/human-resources/staff-employment-policies/senior-staff
+human-resources | 2.1.15 Trial Period | https://adminguide.stanford.edu/chapters/human-resources/staff-employment-policies/trial-period
+human-resources | 2.1.16 Addressing Conduct and Performance Issues | https://adminguide.stanford.edu/chapters/human-resources/staff-employment-policies/addressing-conduct-and-performance-issues
+human-resources | 2.1.17 Layoffs | https://adminguide.stanford.edu/chapters/human-resources/staff-employment-policies/layoffs
+human-resources | 2.1.18 Military Leave | https://adminguide.stanford.edu/chapters/human-resources/staff-employment-policies/military-leave
+human-resources | 2.1.19 Relocation of Faculty and Staff | https://adminguide.stanford.edu/chapters/human-resources/staff-employment-policies/relocation-faculty-and-staff
+human-resources | 2.1.20 Hybrid (Telecommuting) Work Arrangements | https://adminguide.stanford.edu/chapters/human-resources/staff-employment-policies/hybrid-telecommuting-work-arrangements
+human-resources | 2.1.21 Remote Work Arrangements | https://adminguide.stanford.edu/chapters/human-resources/staff-employment-policies/remote-work-arrangements
+human-resources | 2.1.22 Sick Time for Temporary and Casual Staff Employees | https://adminguide.stanford.edu/chapters/human-resources/staff-employment-policies/sick-time-temporary-and-casual-staff-employees
+human-resources | 2.2.1 Definitions | https://adminguide.stanford.edu/chapters/human-resources/general-employment-policies/definitions
+human-resources | 2.2.2 Out-of-State Employees | https://adminguide.stanford.edu/chapters/human-resources/general-employment-policies/out-state-employees
+human-resources | 2.2.3 University Payroll | https://adminguide.stanford.edu/chapters/human-resources/general-employment-policies/university-payroll
+human-resources | 2.2.4 Violence in the Workplace | https://adminguide.stanford.edu/chapters/human-resources/general-employment-policies/violence-workplace
+human-resources | 2.2.5 Requesting a Lactation Accommodation | https://adminguide.stanford.edu/chapters/human-resources/general-employment-policies/requesting-lactation-accommodation
+human-resources | 2.2.6 Smoke-Free Environment | https://adminguide.stanford.edu/chapters/human-resources/general-employment-policies/smoke-free-environment
+human-resources | 2.2.7 Requesting Workplace Accommodations For Employees With Disabilit | https://adminguide.stanford.edu/chapters/human-resources/general-employment-policies/requesting-workplace-accommodations-employees
+human-resources | 2.2.8 Controlled Substances and Alcohol | https://adminguide.stanford.edu/chapters/human-resources/general-employment-policies/controlled-substances-and-alcohol
+human-resources | 2.2.9 Employee Training | https://adminguide.stanford.edu/chapters/human-resources/general-employment-policies/employee-training
+human-resources | 2.2.10 Gifts and Awards for University Employees | https://adminguide.stanford.edu/chapters/human-resources/general-employment-policies/gifts-and-awards-university-employees
+human-resources | 2.3.1 Survivor Benefit Plans | https://adminguide.stanford.edu/chapters/human-resources/employment-benefit-programs/survivor-benefit-plans
+human-resources | 2.3.2 Health Plans | https://adminguide.stanford.edu/chapters/human-resources/employment-benefit-programs/health-plans
+human-resources | 2.3.3 Tuition Privileges | https://adminguide.stanford.edu/chapters/human-resources/employment-benefit-programs/tuition-privileges
+human-resources | 2.3.4 University Housing Programs | https://adminguide.stanford.edu/chapters/human-resources/employment-benefit-programs/university-housing-programs
+human-resources | 2.3.5 Disability and Family Leaves | https://adminguide.stanford.edu/chapters/human-resources/employment-benefit-programs/disability-and-family-leaves
+human-resources | 2.3.6 University Resources | https://adminguide.stanford.edu/chapters/human-resources/employment-benefit-programs/university-resources
+human-resources | 2.4.1 Visas for and Employment of Foreign Nationals | https://adminguide.stanford.edu/chapters/human-resources/employment-general-information/visas-and-employment-foreign-nationals
+human-resources | 2.4.2 Directories and Distribution Lists | https://adminguide.stanford.edu/chapters/human-resources/employment-general-information/directories-and-distribution-lists
+human-resources | 2.4.3 Stanford Identification Cards | https://adminguide.stanford.edu/chapters/human-resources/employment-general-information/stanford-identification-cards
+human-resources | 2.4.4 Property and Liability Insurance | https://adminguide.stanford.edu/chapters/human-resources/employment-general-information/property-and-liability-insurance
+human-resources | 2.4.5 Protection of Property | https://adminguide.stanford.edu/chapters/human-resources/employment-general-information/protection-property
+human-resources | 2.4.6 Indemnification | https://adminguide.stanford.edu/chapters/human-resources/employment-general-information/indemnification
+financial-administration | 3.1.1 Responsibility for University Financial Assets | https://adminguide.stanford.edu/chapters/financial-administration/funds-management/responsibility-university-financial-assets
+financial-administration | 3.1.2 University Funds | https://adminguide.stanford.edu/chapters/financial-administration/funds-management/university-funds
+financial-administration | 3.1.3 Expenditure Accounts (PTAs) | https://adminguide.stanford.edu/chapters/financial-administration/funds-management/expenditure-accounts-ptas
+financial-administration | 3.1.4 Cost Policy | https://adminguide.stanford.edu/chapters/financial-administration/funds-management/cost-policy
+financial-administration | 3.1.5 Retention of Financial Records | https://adminguide.stanford.edu/chapters/financial-administration/funds-management/retention-financial-records
+financial-administration | 3.1.6 Charitable Donations by Stanford University to Other Charitable  | https://adminguide.stanford.edu/chapters/financial-administration/funds-management/charitable-donations-stanford-university-other
+financial-administration | 3.2.1 Responsibility for University Funds | https://adminguide.stanford.edu/chapters/financial-administration/expenditure-management/responsibility-university-funds
+financial-administration | 3.2.2 Cost Transfers | https://adminguide.stanford.edu/chapters/financial-administration/expenditure-management/cost-transfers
+financial-administration | 3.2.3 Allocations and Offsets | https://adminguide.stanford.edu/chapters/financial-administration/expenditure-management/allocations-and-offsets
+financial-administration | 3.3.1 Infrastructure Charges | https://adminguide.stanford.edu/chapters/financial-administration/infrastructure-charges-and-expendable-funds/infrastructure
+financial-administration | 3.3.2 Expendable Funds Investment, Return Allocation and Buffer Policy | https://adminguide.stanford.edu/chapters/financial-administration/infrastructure-charges-and-expendable-funds/expendable-funds
+financial-administration | 3.4.1 Revenue Recognition | https://adminguide.stanford.edu/chapters/financial-administration/revenue-management/revenue-recognition
+financial-administration | 3.4.2 Card and Payment Account Acceptance and Processing | https://adminguide.stanford.edu/chapters/financial-administration/revenue-management/card-and-payment-account-acceptance-and
+financial-administration | 3.4.3 Student Billing | https://adminguide.stanford.edu/chapters/financial-administration/revenue-management/student-billing
+financial-administration | 3.5.1 Financial Irregularities | https://adminguide.stanford.edu/chapters/financial-administration/financial-irregularities/financial-irregularities
+financial-administration | 3.6.1 Bank Accounts | https://adminguide.stanford.edu/chapters/financial-administration/bank-accounts/bank-accounts
+financial-administration | 3.7.1 Establishment and Governance of Legal Entities | https://adminguide.stanford.edu/chapters/financial-administration/legal-entities/establishment-and-governance-legal-entities
+financial-administration | 3.8.1 Account Balance Reconciliation | https://adminguide.stanford.edu/chapters/financial-administration/account-balance-reconciliation-and-attestation/account-balance
+financial-administration | 3.8.2 Account Balance Attestation | https://adminguide.stanford.edu/chapters/financial-administration/account-balance-reconciliation-and-attestation/account-balance-0
+health-and-safety | 7.1.1 Health and Safety Services | https://adminguide.stanford.edu/chapters/health-and-safety/health-and-safety-services/health-and-safety-services
+health-and-safety | 7.2.1 Emergency/Accident Procedures | https://adminguide.stanford.edu/chapters/health-and-safety/emergency-and-accident-procedures/emergencyaccident-procedures
+health-and-safety | 7.3.1 Identifying and Correcting Workplace Hazards | https://adminguide.stanford.edu/chapters/health-and-safety/identifying-and-correcting-workplace-hazards/identifying-and-correcting
+health-and-safety | 7.4.1 Health and Safety Training and Communication | https://adminguide.stanford.edu/chapters/health-and-safety/health-and-safety-training-and-communication/health-and-safety-training
+health-and-safety | 7.5.1 Health and Safety Performance Standards and Discipline | https://adminguide.stanford.edu/chapters/health-and-safety/health-and-safety-performance-standards/health-and-safety-performance
+health-and-safety | 7.6.1 Employee Work-Related Incident Reporting | https://adminguide.stanford.edu/chapters/health-and-safety/accident-and-incident-reporting/employee-work-related-incident-reporting
+health-and-safety | 7.7.1 Medical Examinations | https://adminguide.stanford.edu/chapters/health-and-safety/medical-examinations/medical-examinations
+health-and-safety | 7.8.1 Health and Safety Reference Guide | https://adminguide.stanford.edu/chapters/health-and-safety/health-and-safety-reference-guide/health-and-safety-reference-guide
+services | 8.1.1 Telecommunication Services | https://adminguide.stanford.edu/chapters/services/communication-and-mail-services/telecommunication-services
+services | 8.1.2 Mail Services | https://adminguide.stanford.edu/chapters/services/communication-and-mail-services/mail-services
+services | 8.1.3 Provision of Mobile Equipment and Related Services | https://adminguide.stanford.edu/chapters/services/communication-and-mail-services/provision-mobile-equipment-and-related-services
+services | 8.2.1 University Events | https://adminguide.stanford.edu/chapters/services/events-and-conferences/university-events
+services | 8.2.2 Conferences | https://adminguide.stanford.edu/chapters/services/events-and-conferences/conferences
+services | 8.3.1 Capital Projects | https://adminguide.stanford.edu/chapters/services/capital-projects/capital-projects
+services | 8.4.1 Vehicle Acquisition, Ownership and Disposition | https://adminguide.stanford.edu/chapters/services/vehicle-policies/vehicle-acquisition-ownership-and-disposition
+services | 8.4.2 Vehicle Use | https://adminguide.stanford.edu/chapters/services/vehicle-policies/vehicle-use
