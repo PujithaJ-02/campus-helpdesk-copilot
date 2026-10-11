@@ -18,9 +18,15 @@ load_dotenv(Path(__file__).resolve().parents[1] / "helpdesk_agent" / ".env")
 from helpdesk_agent.rag.retriever import HybridRetriever  # noqa: E402
 
 
+def is_match(url, expected):
+    """Same page, a sub-page of it, or the same policy under the site's alias path."""
+    url, expected = url.rstrip("/"), expected.rstrip("/")
+    return url.startswith(expected) or url.rsplit("/", 1)[-1] == expected.rsplit("/", 1)[-1]
+
+
 def first_hit_rank(results, expected):
     for rank, r in enumerate(results, start=1):
-        if r["url"].rstrip("/").startswith(expected.rstrip("/")):
+        if is_match(r["url"], expected):
             return rank
     return None
 

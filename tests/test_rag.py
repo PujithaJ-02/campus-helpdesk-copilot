@@ -56,3 +56,37 @@ def test_crawler_extracts_sections_and_stays_in_chapter():
     assert page["sections"] == [("Use", "Business only."), ("Use", "No personal charges.")]
     links = list(links_in(html, url, "https://adminguide.stanford.edu/chapters/purchasing-and-payments"))
     assert links == ["https://adminguide.stanford.edu/chapters/purchasing-and-payments/travel-cards/limits"]
+
+
+def test_crawler_drops_print_button_and_dedupes_alias_urls(monkeypatch):
+    import scripts.crawl_adminguide as crawler
+
+    html = "<main><h1>Travel Cards</h1><p>Print</p><p>Business only.</p></main>"
+    alias = "https://adminguide.stanford.edu/chapters/p/travel-and-business-expenses/travel-cards"
+    index = ('<main><h1>Chapter</h1><p>Intro</p>'
+             '<a href="/chapters/p/business-and-travel-expenses/travel-cards">a</a>'
+             f'<a href="{alias}">b</a></main>')
+
+    class Resp:
+        status_code = 200
+        headers = {"Content-Type": "text/html"}
+
+        def __init__(self, text):
+            self.text = text
+
+    def fake_get(self, url, timeout):
+        return Resp(index if url.endswith("/chapters/p") else html)
+
+    monkeypatch.setattr(crawler.requests.Session, "get", fake_get)
+    pages = crawler.crawl(["p"], max_pages=10, delay=0)
+    titles = [p["title"] for p in pages]
+    assert titles == ["Chapter", "Travel Cards"]
+    assert pages[1]["sections"] == [("Travel Cards", "Business only.")]
+
+
+def test_eval_matches_alias_and_subpages():
+    from scripts.eval_retrieval import is_match
+    base = "https://adminguide.stanford.edu/chapters/p/business-and-travel-expenses/travel-cards"
+    assert is_match(base + "/limits", base)
+    assert is_match("https://adminguide.stanford.edu/chapters/p/travel-and-business-expenses/travel-cards", base)
+    assert not is_match("https://adminguide.stanford.edu/chapters/p/business-and-travel-expenses/expense-advances", base)

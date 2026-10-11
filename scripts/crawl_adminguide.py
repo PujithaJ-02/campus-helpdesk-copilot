@@ -6,6 +6,7 @@ Stays inside the chapters you list, waits between requests, and stores each
 page as (title, [(section heading, text), ...]) so chunking can keep sections intact.
 """
 import argparse
+import hashlib
 import json
 import time
 from pathlib import Path
@@ -23,6 +24,8 @@ DEFAULT_CHAPTERS = [
     "health-and-safety",
     "services",
 ]
+# Page chrome that shows up as a text block but carries no policy content.
+JUNK_BLOCKS = {"Print", "Share", "Back to top"}
 HEADERS = {"User-Agent": "campus-helpdesk-copilot/0.1 (student portfolio project)"}
 
 
@@ -37,7 +40,7 @@ def extract(html, url, chapter):
     sections, heading = [], title
     for el in main.find_all(["h2", "h3", "h4", "p", "li", "td"]):
         text = el.get_text(" ", strip=True)
-        if not text:
+        if not text or text in JUNK_BLOCKS:
             continue
         if el.name in ("h2", "h3", "h4"):
             heading = text
@@ -54,14 +57,22 @@ def links_in(html, url, prefix):
             yield link
 
 
+def content_key(page):
+    """Same policy text under two URLs (the site has alias paths) gets the same key."""
+    body = "\n".join(t for _, t in page["sections"])
+    return hashlib.sha1(body.encode()).hexdigest()
+
+
 def crawl(chapters, max_pages, delay):
-    pages, seen = [], set()
+    """max_pages is per chapter, so one large chapter can't crowd out the rest."""
+    pages, seen, seen_content = [], set(), set()
     session = requests.Session()
     session.headers.update(HEADERS)
     for chapter in chapters:
         prefix = f"{BASE}/chapters/{chapter}"
         queue = [prefix]
-        while queue and len(pages) < max_pages:
+        in_chapter = 0
+        while queue and in_chapter < max_pages:
             url = queue.pop(0)
             if url in seen:
                 continue
@@ -74,8 +85,11 @@ def crawl(chapters, max_pages, delay):
             if resp.status_code != 200 or "text/html" not in resp.headers.get("Content-Type", ""):
                 continue
             page = extract(resp.text, url, chapter)
-            if page["sections"]:
+            key = content_key(page)
+            if page["sections"] and key not in seen_content:
+                seen_content.add(key)
                 pages.append(page)
+                in_chapter += 1
                 print(f"[{len(pages)}] {page['title'][:70]}")
             queue.extend(link for link in links_in(resp.text, url, prefix) if link not in seen)
             time.sleep(delay)
@@ -85,7 +99,7 @@ def crawl(chapters, max_pages, delay):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--chapters", nargs="+", default=DEFAULT_CHAPTERS)
-    parser.add_argument("--max-pages", type=int, default=300)
+    parser.add_argument("--max-pages", type=int, default=60, help="per chapter")
     parser.add_argument("--delay", type=float, default=1.0)
     parser.add_argument("--out", default="data/pages.jsonl")
     args = parser.parse_args()
