@@ -100,17 +100,24 @@ python -m scripts.eval_answers       # LLM judge: faithfulness, citation, answer
 python -m scripts.eval_triage --limit 50   # category accuracy vs human labels in ServiceNow
 ```
 
-`eval/policy_golden.jsonl` has 9 seed questions. **Extend it to 30+** by reading
-Admin Guide pages and writing questions a real staff member would ask. Your own
-golden set is what makes the numbers trustworthy.
+`eval/policy_golden.jsonl` has 30 hand-written questions across all 6 chapters,
+each checked against the page that answers it. About a quarter use exact terms
+(policy numbers, PCard, PTA, SU-17, Form 1) to give keyword search a fair chance.
+
+**Why dense is the default:** hybrid search was the original plan, but BM25
+matched surface words over meaning (a "stolen laptop" question pulled insurance
+and vehicle-records pages), and even the exact-term questions didn't need it.
+Lowering BM25's weight helped, but dense alone was best, so the agent uses dense.
 
 ### Results (fill in from `eval/results/`)
 
 | Eval | Metric | Value |
 |---|---|---|
-| Retrieval, BM25 only | hit@4 / MRR | |
-| Retrieval, dense only | hit@4 / MRR | |
-| Retrieval, hybrid | hit@4 / MRR | |
+| Retrieval, BM25 only (n=30) | hit@4 / MRR | 0.83 / 0.75 |
+| Retrieval, hybrid, BM25 weight 1.0 | hit@4 / MRR | 0.90 / 0.84 |
+| Retrieval, hybrid, BM25 weight 0.25 | hit@4 / MRR | 0.93 / 0.87 |
+| **Retrieval, dense only (default)** | hit@4 / MRR | **1.00 / 0.92** |
+| Retrieval, dense + chapter filter | hit@4 / MRR | 1.00 / 0.93 |
 | Answers (n=) | faithful / cited | |
 | Triage (n=) | category accuracy | |
 | Latency | p50 answer ms | |
