@@ -31,11 +31,11 @@ def first_hit_rank(results, expected):
     return None
 
 
-def evaluate(retriever, golden, k, mode, use_filter):
+def evaluate(retriever, golden, k, mode, use_filter, bm25_weight=1.0):
     hits, rr, latencies, misses = 0, [], [], []
     for item in golden:
         start = time.perf_counter()
-        results = retriever.search(item["question"], k=k, mode=mode,
+        results = retriever.search(item["question"], k=k, mode=mode, bm25_weight=bm25_weight,
                                    chapter=item.get("chapter") if use_filter else None)
         latencies.append((time.perf_counter() - start) * 1000)
         rank = first_hit_rank(results, item["expected_url"])
@@ -45,7 +45,7 @@ def evaluate(retriever, golden, k, mode, use_filter):
             misses.append(item["question"])
     n = len(golden)
     return {
-        "mode": mode,
+        "mode": mode if mode != "hybrid" else f"hybrid(bm25={bm25_weight})",
         "chapter_filter": use_filter,
         f"hit@{k}": round(hits / n, 3),
         "mrr": round(sum(rr) / n, 3),
@@ -58,14 +58,17 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--golden", default="eval/policy_golden.jsonl")
     parser.add_argument("--k", type=int, default=4)
+    parser.add_argument("--bm25-weights", type=float, nargs="+", default=[1.0, 0.5, 0.25])
     args = parser.parse_args()
 
     golden = [json.loads(line) for line in Path(args.golden).read_text().splitlines() if line.strip()]
     retriever = HybridRetriever()
     report = {"n": len(golden), "index": retriever.manifest, "runs": []}
-    for mode in ("bm25", "dense", "hybrid"):
-        report["runs"].append(evaluate(retriever, golden, args.k, mode, use_filter=False))
-    report["runs"].append(evaluate(retriever, golden, args.k, "hybrid", use_filter=True))
+    report["runs"].append(evaluate(retriever, golden, args.k, "bm25", use_filter=False))
+    report["runs"].append(evaluate(retriever, golden, args.k, "dense", use_filter=False))
+    for w in args.bm25_weights:
+        report["runs"].append(evaluate(retriever, golden, args.k, "hybrid", False, bm25_weight=w))
+    report["runs"].append(evaluate(retriever, golden, args.k, "dense", use_filter=True))
 
     Path("eval/results").mkdir(parents=True, exist_ok=True)
     Path("eval/results/retrieval.json").write_text(json.dumps(report, indent=2))

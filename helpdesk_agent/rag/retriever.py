@@ -4,6 +4,7 @@ The chapter filter is applied to both candidate lists before fusion, so a
 filtered search never returns a chunk from the wrong chapter.
 """
 import json
+import os
 import re
 from pathlib import Path
 
@@ -33,8 +34,14 @@ class HybridRetriever:
     def chapters(self):
         return sorted({c["chapter"] for c in self.chunks})
 
-    def search(self, query, k=4, chapter=None, candidates=40, rrf_k=60, mode="hybrid"):
-        """mode: "hybrid" (default), "dense" or "bm25". The last two exist for eval ablations."""
+    def search(self, query, k=4, chapter=None, candidates=40, rrf_k=60, mode="hybrid", bm25_weight=None):
+        """mode: "hybrid" (default), "dense" or "bm25". The last two exist for eval ablations.
+
+        bm25_weight scales BM25's vote in the fusion (dense always counts 1.0).
+        Below 1.0, keyword matches can break ties but can't outvote a strong semantic match.
+        """
+        if bm25_weight is None:
+            bm25_weight = float(os.getenv("BM25_WEIGHT", "1.0"))
         allowed = (lambda i: self.chunks[i]["chapter"] == chapter) if chapter else (lambda i: True)
         # With a filter, search everything so the filter can't starve the candidate list.
         n_dense = self.index.ntotal if chapter else min(candidates, self.index.ntotal)
@@ -47,11 +54,15 @@ class HybridRetriever:
         ranked = sorted(range(len(scores)), key=lambda i: scores[i], reverse=True)
         sparse = [i for i in ranked if scores[i] > 0 and allowed(i)][:candidates]
 
-        rankings = {"hybrid": (dense, sparse), "dense": (dense,), "bm25": (sparse,)}[mode]
+        rankings = {
+            "hybrid": ((dense, 1.0), (sparse, bm25_weight)),
+            "dense": ((dense, 1.0),),
+            "bm25": ((sparse, 1.0),),
+        }[mode]
         fused = {}
-        for ranking in rankings:
+        for ranking, weight in rankings:
             for rank, idx in enumerate(ranking):
-                fused[idx] = fused.get(idx, 0.0) + 1.0 / (rrf_k + rank + 1)
+                fused[idx] = fused.get(idx, 0.0) + weight / (rrf_k + rank + 1)
 
         top = sorted(fused, key=fused.get, reverse=True)[:k]
         return [dict(self.chunks[i], score=round(fused[i], 5)) for i in top]

@@ -90,3 +90,13 @@ def test_eval_matches_alias_and_subpages():
     assert is_match(base + "/limits", base)
     assert is_match("https://adminguide.stanford.edu/chapters/p/travel-and-business-expenses/travel-cards", base)
     assert not is_match("https://adminguide.stanford.edu/chapters/p/business-and-travel-expenses/expense-advances", base)
+
+
+def test_lower_bm25_weight_lets_dense_win(retriever):
+    # "stolen laptop" vs a keyword-heavy distractor: with equal votes BM25 can drag
+    # a wrong chunk up; with a small BM25 weight the dense ranking decides.
+    full = retriever.search("report stolen laptop restricted data", k=3, bm25_weight=1.0)
+    light = retriever.search("report stolen laptop restricted data", k=3, bm25_weight=0.1)
+    dense = retriever.search("report stolen laptop restricted data", k=3, mode="dense")
+    assert [h["id"] for h in light] == [h["id"] for h in dense]
+    assert full  # equal-weight run still returns results
