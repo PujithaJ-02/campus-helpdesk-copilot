@@ -29,3 +29,20 @@ def test_prompts_forbid_collecting_personal_details_and_self_transfer():
     for text in (prompts.ROUTER_INSTRUCTION, prompts.POLICY_INSTRUCTION, prompts.TICKET_INSTRUCTION):
         assert "Never ask for the user's name, email, phone number, SUNet ID" in text
     assert "never call transfer_to_agent to reach ticket_agent" in prompts.TICKET_INSTRUCTION
+
+
+def test_model_is_pinned_to_its_own_location():
+    """Import the agent fresh, in a separate process, with the env Agent Engine creates.
+    A subprocess catches import-time errors that a reused in-process module would hide."""
+    import os
+    import subprocess
+    import sys
+    env = dict(os.environ, GOOGLE_GENAI_USE_VERTEXAI="TRUE", GOOGLE_CLOUD_PROJECT="proj",
+               GOOGLE_CLOUD_LOCATION="us-central1", HELPDESK_MODEL="gemini-3.5-flash")
+    env.pop("HELPDESK_MODEL_LOCATION", None)
+    code = ("from helpdesk_agent.agent import root_agent, policy_agent;"
+            "m = policy_agent.model;"
+            "print(type(m).__name__, m.model, m.client_kwargs['location'], root_agent.model is m)")
+    out = subprocess.run([sys.executable, "-c", code], env=env, capture_output=True, text=True)
+    assert out.returncode == 0, out.stderr[-500:]
+    assert out.stdout.strip().splitlines()[-1] == "Gemini gemini-3.5-flash global True"
