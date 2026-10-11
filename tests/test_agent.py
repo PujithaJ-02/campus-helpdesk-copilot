@@ -22,3 +22,10 @@ def test_tool_schemas_keep_real_parameters_through_decorator():
     params = set(schema["properties"])
     assert params == {"short_description", "description", "category", "urgency", "impact"}
     assert "Opens a new ServiceNow incident" in decl.description
+
+
+def test_prompts_forbid_collecting_personal_details_and_self_transfer():
+    from helpdesk_agent import prompts
+    for text in (prompts.ROUTER_INSTRUCTION, prompts.POLICY_INSTRUCTION, prompts.TICKET_INSTRUCTION):
+        assert "Never ask for the user's name, email, phone number, SUNet ID" in text
+    assert "never call transfer_to_agent to reach ticket_agent" in prompts.TICKET_INSTRUCTION
