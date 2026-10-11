@@ -3,8 +3,14 @@
 The role lives in session state under "user:role" (set by the UI or API caller).
 Missing role falls back to DEFAULT_ROLE, the least-privileged one.
 """
+import os
+
 from .guardrails import DEFAULT_ROLE, redact, tool_allowed
 from .telemetry import emit
+
+# Live testing showed the policy agent re-searching 13 times for one question.
+# Cap it per user turn so a confused model can't burn quota.
+MAX_SEARCHES_PER_TURN = int(os.getenv("MAX_SEARCHES_PER_TURN", "3"))
 
 
 def _role(tool_context):
@@ -25,6 +31,17 @@ def enforce_role(tool, args, tool_context):
             "status": "denied",
             "message": f"The '{role}' role cannot use {tool.name}. Offer to open a ticket instead.",
         }
+    if tool.name == "search_policy":
+        key = f"temp:search_calls:{getattr(tool_context, 'invocation_id', '')}"
+        count = tool_context.state.get(key, 0) + 1
+        tool_context.state[key] = count
+        if count > MAX_SEARCHES_PER_TURN:
+            emit("search_limit", role=role, count=count)
+            return {
+                "status": "limit_reached",
+                "message": "Search limit reached. Answer from the passages you already have, "
+                           "or say the Admin Guide does not clearly cover this and offer a ticket.",
+            }
     return None
 
 

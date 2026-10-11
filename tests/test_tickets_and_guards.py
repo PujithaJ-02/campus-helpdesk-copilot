@@ -108,3 +108,15 @@ def test_servicenow_failure_becomes_tool_error(sn):
     sn.list_incidents.side_effect = RuntimeError("HTTP 401")
     out = ticket_tools.list_open_incidents(3)
     assert out["status"] == "error" and "401" in out["message"]
+
+
+def test_search_policy_is_capped_per_turn():
+    from helpdesk_agent.callbacks import MAX_SEARCHES_PER_TURN
+    tool = SimpleNamespace(name="search_policy")
+    turn = SimpleNamespace(state={"user:role": "requester"}, invocation_id="inv-1")
+    for _ in range(MAX_SEARCHES_PER_TURN):
+        assert enforce_role(tool, {"question": "x"}, turn) is None
+    assert enforce_role(tool, {"question": "x"}, turn)["status"] == "limit_reached"
+    # A new user turn (new invocation id) starts counting again.
+    turn.invocation_id = "inv-2"
+    assert enforce_role(tool, {"question": "x"}, turn) is None

@@ -3,6 +3,7 @@
 Reads GOOGLE_GENAI_USE_VERTEXAI, GOOGLE_CLOUD_PROJECT and GOOGLE_CLOUD_LOCATION
 from the environment. Vectors are L2-normalized so FAISS inner product = cosine.
 """
+import logging
 import os
 import time
 
@@ -31,9 +32,11 @@ class VertexEmbedder:
                     resp = self.client.models.embed_content(model=self.model, contents=batch, config=config)
                     vectors.extend(e.values for e in resp.embeddings)
                     break
-                except Exception:
+                except Exception as exc:
                     if attempt == 3:
                         raise
+                    logging.getLogger("helpdesk_agent").warning(
+                        "embedding retry %d after %s", attempt + 1, str(exc)[:120])
                     time.sleep(2 ** attempt)  # back off on quota errors
         return normalize(np.array(vectors, dtype="float32"))
 
