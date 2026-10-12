@@ -12,6 +12,11 @@ from .telemetry import emit
 # Cap it per user turn so a confused model can't burn quota.
 MAX_SEARCHES_PER_TURN = int(os.getenv("MAX_SEARCHES_PER_TURN", "3"))
 
+# ADK's built-in handoff tool also passes through this callback. It only moves the
+# conversation between our own agents and touches no data, so every role may use it.
+# Blocking it left requesters stuck in policy_agent, unable to reach ticket_agent.
+ROUTING_TOOLS = {"transfer_to_agent"}
+
 
 def _role(tool_context):
     try:
@@ -23,6 +28,9 @@ def _role(tool_context):
 def enforce_role(tool, args, tool_context):
     """Runs before every tool. Returning a dict skips the tool and hands that dict to the model."""
     role = _role(tool_context)
+    if tool.name in ROUTING_TOOLS:
+        emit("handoff", role=role, to=args.get("agent_name"))
+        return None
     allowed = tool_allowed(role, tool.name)
     safe_args = {k: redact(v)[0] if isinstance(v, str) else v for k, v in args.items()}
     emit("tool_request", tool=tool.name, role=role, allowed=allowed, args=safe_args)

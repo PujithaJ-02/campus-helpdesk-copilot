@@ -68,7 +68,7 @@ from the source, and when it can't, it files a clean ticket instead of guessing.
    python -m venv .venv && source .venv/bin/activate
    pip install -r requirements-dev.txt
    cp helpdesk_agent/.env.example helpdesk_agent/.env    # fill it in
-   pytest -q                                            # 25 offline tests
+   pytest -q                                            # 34 offline tests
    ```
 
 ## Build the index
@@ -135,6 +135,7 @@ The judge is the same model as the agent, which can be lenient. Treat 30/30 as
 | Policy agent called search 13 times for one question and hit the rate limit | Per-turn search cap in the `before_tool_callback` (code, not prompt) |
 | One answer added legal details not in the retrieved passages | Prompt rule: no details beyond the passages; say what is missing |
 | p50 latency 15.5 s | Traced to the global embedding endpoint (~10 s after idle); moved embeddings to us-central1: 5.3 s |
+| Asking for a ticket right after a policy question failed with "system restriction" | The role callback also sees ADK's `transfer_to_agent` and was denying it. Handoffs now pass; an end-to-end test with a scripted fake model replays the conversation |
 
 ## Deploy to Vertex AI Agent Engine
 

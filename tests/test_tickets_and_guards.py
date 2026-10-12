@@ -120,3 +120,10 @@ def test_search_policy_is_capped_per_turn():
     # A new user turn (new invocation id) starts counting again.
     turn.invocation_id = "inv-2"
     assert enforce_role(tool, {"question": "x"}, turn) is None
+
+
+def test_every_role_can_hand_off_between_agents():
+    # transfer_to_agent is ADK's routing tool; it also runs through the callback.
+    for role in (None, "requester", "it_staff", "unknown"):
+        assert enforce_role(SimpleNamespace(name="transfer_to_agent"),
+                            {"agent_name": "ticket_agent"}, ctx(role)) is None
